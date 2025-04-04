@@ -47,7 +47,18 @@ def quiz_db():
     
     for i in range(len(questions)):
         cursor.execute("INSERT INTO question(Question, answer, wrong1, wrong2, wrong3) VALUES (?, ?, ?, ?, ?)", [questions[i-1][0], questions[i-1][1], questions[i-1][2], questions[i-1][3], questions[i-1][4]])
-     
+
+def quiz_content():
+    while True:
+        q = input("Чи хочете ви встановити зв1язок між питанням та вікториною? так\ні - ").lower()
+        if q == "так":
+            id_question = int(input("Введіть id питання - "))
+            id_quiz = int(input("Введіть id вікторини - "))
+            cursor.execute("INSERT INTO quiz_content(quiz_id, question_id) VALUES (?, ?)", [id_quiz, id_question])
+        else:
+            break
+
 create_db()
 quiz_db()
+quiz_content()
 conn.commit()
